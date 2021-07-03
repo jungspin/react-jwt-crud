@@ -52,7 +52,7 @@ public class PostController {
 
 	
 
-	// 게시글 수정화면 가기 -> 근데 나는 걍 상태 넘겨줄래 일단 만들자
+	// 게시글 수정화면 -> 근데 나는 걍 상태 넘겨줄래 일단 만들자
 	@GetMapping("/post/user/{id}")
 	public ResponseEntity<?> updatePage(@PathVariable int id) throws IOException {
 		Post postEntity = postService.findByNum(id);

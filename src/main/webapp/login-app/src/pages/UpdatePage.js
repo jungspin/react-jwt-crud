@@ -1,93 +1,97 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 
 const UpdatePage = (props) => {
-  const { user } = useSelector((store) => store);
-  //console.log("업데이트!");
-  let { match } = props;
-  let id = match.params.id;
+  //console.log(info);
+  let data = props.location.state.info;
+  //console.log(data);
 
-  const [detail, setDetail] = useState([]);
-
-  const getDetail = async () => {
-    await axios({
-      method: "GET",
-      url: "http://localhost:8888/post/" + id,
-    }).then((res) => {
-      //console.log(res);
-      setDetail(res.data.data);
-    });
-  };
-  //console.log(detail);
-
-  const [update, setUpdate] = useState({
-    title: detail.title,
-    content: detail.content,
-    author: user.username,
+  const [updateData, setupdateData] = useState({
+    title: data.title,
+    content: data.content,
+    author: data.author,
   });
 
-  //console.log(detail.title);
+  const { title, author, content } = updateData;
 
-  const { title, author, content } = update;
-
-  useEffect(() => {
-    getDetail();
-  }, []);
+  const update = (e) => {
+    // event 를 받음
+    e.preventDefault(); // submit 액션 차단
+    fetch(`http://localhost:8888/user/post/${data.id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: localStorage.getItem("Authorization"),
+      },
+      body: JSON.stringify(updateData),
+    })
+      .then((res) => {
+        return res.json(); // 실제로는 이렇게 하지마라~~~json으로 받아라
+      })
+      .then((res) => {
+        //console.log(res);
+        // body 데이터가 들어옴
+        if (res.code === 1) {
+          console.log("통신성공");
+          // 화면 동기화 해야됨
+          props.history.push("/");
+        } else {
+          console.log("통신 실패");
+        }
+      });
+  };
 
   const changeInput = (e) => {
     //console.log(e.target.value);
     const { value, name } = e.target;
-    setUpdate({
-      ...update,
+    setupdateData({
+      ...updateData,
       [name]: value,
     });
   };
-  console.log(update);
-  //console.log(title);
-
-  const updateOne = () => {};
+  //console.log(updateData);
 
   return (
-    <Container>
-      <Form>
-        <Form.Group>
-          <Form.Label>Author</Form.Label>
-          <Form.Control
-            name="author"
-            type="text"
-            value={author}
-            readOnly="readOnly"
-            onChange={changeInput}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Title</Form.Label>
-          <Form.Control
-            name="title"
-            type="text"
-            value={title}
-            //readOnly="readOnly"
-            onChange={changeInput}
-          />
-        </Form.Group>
+    <div>
+      <Container>
+        <Form>
+          <Form.Group>
+            <Form.Label>Author</Form.Label>
+            <Form.Control
+              name="author"
+              type="text"
+              value={author}
+              readOnly="readOnly"
+              onChange={changeInput}
+            />
+          </Form.Group>
 
-        <Form.Group>
-          <Form.Label>Content</Form.Label>
-          <Form.Control
-            name="content"
-            type="text"
-            value={content}
-            onChange={changeInput}
-          />
-        </Form.Group>
+          <Form.Group>
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              name="title"
+              type="text"
+              value={title}
+              onChange={changeInput}
+            />
+          </Form.Group>
 
-        <Button variant="primary" type="button" onClick={updateOne}>
-          수정하기
-        </Button>
-      </Form>
-    </Container>
+          <Form.Group>
+            <Form.Label>Content</Form.Label>
+            <Form.Control
+              name="content"
+              type="text"
+              value={content}
+              onChange={changeInput}
+            />
+          </Form.Group>
+
+          <Button variant="primary" type="button" onClick={update}>
+            수정하기
+          </Button>
+        </Form>
+      </Container>
+    </div>
   );
 };
 

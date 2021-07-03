@@ -19,7 +19,7 @@ const PostPage = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(post);
+  //console.log(post);
 
   const write = (e) => {
     e.preventDefault();

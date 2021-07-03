@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { userlogout } from "../store";
 
 const Header = () => {
-  // 구조분해할당
+  // 디스패처로 reducer 접근
+  const dispatcher = useDispatch();
   const { isLogin } = useSelector((store) => store);
-  //const dispatcher = useDispatch();
 
   const logout = (e) => {
     e.preventDefault();
@@ -15,9 +15,6 @@ const Header = () => {
     dispatcher(userlogout());
     // 글쓰다 로그아웃하면 어떡하지?
   };
-
-  // 디스패처로 reducer 접근
-  const dispatcher = useDispatch();
 
   return (
     <>

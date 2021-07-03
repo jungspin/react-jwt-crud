@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,7 +67,7 @@ public class UserController {
 	}
 
 	// 게시글 수정하기
-	@PutMapping("/post/{id}")
+	@PostMapping("/post/{id}")
 	public ResponseEntity<?> update(@PathVariable int id, @RequestBody Post post) throws IOException {
 		System.out.println("update 컨트롤러 탔당");
 		User principal = (User) session.getAttribute("principal");

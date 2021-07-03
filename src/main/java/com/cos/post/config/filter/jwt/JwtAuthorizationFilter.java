@@ -41,7 +41,7 @@ public class JwtAuthorizationFilter implements Filter {
 			out.flush();
 		} else {
 			jwtToken = jwtToken.replace(JwtProps.AUTH, ""); // Bearer 없어야 검증이 가능!!
-			System.out.println("찐 jwtToken : " + jwtToken);
+			//System.out.println("찐 jwtToken : " + jwtToken);
 
 			try {
 				DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(JwtProps.SECRET))

@@ -57,7 +57,7 @@ const LoginPage = (props) => {
     // 새로 그려질 때(상태값 바뀔때) 값이 바뀜. 여기 있으면 새로 그려지기 전의 상태를 보여줌
   };
 
-  console.log(loginUser); // 여기로 옮겨주면 잘 확인 됨
+  //console.log(loginUser); // 여기로 옮겨주면 잘 확인 됨
 
   return (
     <Container>

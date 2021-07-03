@@ -1,5 +1,3 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -8,36 +6,14 @@ const DetailPage = (props) => {
   const { user } = useSelector((store) => store);
   const { isLogin } = useSelector((store) => store);
 
-  //console.log(1, props);
-  //console.log("detail");
-
-  let { match } = props;
-  //console.log(1, match);
-  let id = match.params.id;
-
-  //console.log(2, id);
-
-  const [detail, setDetail] = useState([]);
-
-  const getDetail = async () => {
-    await axios({
-      method: "GET",
-      url: "http://localhost:8888/post/" + id,
-    }).then((res) => {
-      //console.log(res);
-      setDetail(res.data.data);
-    });
-  };
-  // console.log(3, user.username);
-  // console.log(4, detail.author);
-
-  useEffect(() => {
-    getDetail();
-  }, []);
+  //console.log(list);
+  let info = props.location.state.list;
+  //console.log(1, info);
+  //console.log(2, info.id);
 
   const delPost = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:8888/user/post/${detail.id}`, {
+    fetch(`http://localhost:8888/user/post/${info.id}`, {
       method: "DELETE",
       headers: {
         Authorization: localStorage.getItem("Authorization"),
@@ -48,7 +24,7 @@ const DetailPage = (props) => {
         console.log(res);
         // body 데이터가 들어옴
         if (res.code === 1) {
-          console.log("통신성공");
+          console.log("통신 성공");
           // 화면 동기화 해야됨
           props.history.push("/");
         } else {
@@ -62,24 +38,24 @@ const DetailPage = (props) => {
       <Card style={{ width: "18rem" }}>
         <Card.Body>
           <Card.Title>
-            {detail.id}. {detail.title}
+            {info.id}. {info.title}
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            {detail.created}
+            {info.created}
           </Card.Subtitle>
           <Card.Text>
-            {detail.author} : {detail.content}
+            {info.author} : {info.content}
           </Card.Text>
         </Card.Body>
       </Card>
       <br />
       {/* 삼항연산자로 로그인되어있고 id 일치하면 삭제, 수정버튼 나타내기 */}
-      {isLogin === true && user.username === detail.author ? (
+      {isLogin === true && user.username === info.author ? (
         <>
           <Link
             to={{
-              pathname: `/post/update/${detail.id}`,
-              state: { detail },
+              pathname: `/post/update/${info.id}`,
+              state: { info },
             }}
           >
             <Button>수정하기</Button>

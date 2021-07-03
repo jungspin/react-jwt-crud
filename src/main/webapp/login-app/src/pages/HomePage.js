@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, Container } from "react-bootstrap";
 
+// 데이터 요청해서 뿌리기
 const HomePage = () => {
   const [lists, setList] = useState([]);
 
   const getList = async () => {
     let list = await axios.get("http://localhost:8888/post");
-    //console.log(1, list);
+    //console.log(list.data.data);
     setList(list.data.data);
   };
 
@@ -16,12 +17,16 @@ const HomePage = () => {
     getList();
   }, []);
 
-  //console.log(2, lists);
   return (
     <div>
       {lists.map((list) => (
         <Container key={list.id}>
-          <Link to={`/post/detail/${list.id}`}>
+          <Link
+            to={{
+              pathname: `/post/detail/${list.id}`,
+              state: { list },
+            }}
+          >
             <div>
               <Card style={{ width: "18rem" }}>
                 <Card.Body>
@@ -31,6 +36,7 @@ const HomePage = () => {
                   <Card.Subtitle className="mb-2 text-muted">
                     {list.created}
                   </Card.Subtitle>
+                  {/* <Card.Text>{list.content}</Card.Text> */}
                 </Card.Body>
               </Card>
               <br />

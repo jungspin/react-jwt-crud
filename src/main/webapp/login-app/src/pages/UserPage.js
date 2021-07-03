@@ -21,8 +21,8 @@ const UserPage = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(1, res);
-        console.log(res.data);
+        //console.log(1, res);
+        //console.log(res.data);
         dipatcher(userlogin(res.data));
       })
       .catch((error) => {
