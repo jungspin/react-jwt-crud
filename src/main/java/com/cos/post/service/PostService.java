@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cos.post.dto.PostDTO;
+import com.cos.post.domain.post.Post;
+
 import com.cos.post.mapper.PostMapper;
 
 
@@ -15,20 +16,20 @@ public class PostService {
 	@Autowired
 	private PostMapper postMapper;
 
-	public int insert(PostDTO postDTO) {
-		return postMapper.insert(postDTO);
+	public int insert(Post post) {
+		return postMapper.insert(post);
 	}
 
-	public List<PostDTO> list(){
+	public List<Post> list(){
 		return postMapper.list();
 	}
 
-	public PostDTO findByNum(int id) {
+	public Post findByNum(int id) {
 		return postMapper.findByNum(id);
 	}
 
-	public int update(PostDTO postDTO) {
-		return postMapper.update(postDTO);
+	public int update(Post post) {
+		return postMapper.update(post);
 	}
 
 	public int delete(int id) {

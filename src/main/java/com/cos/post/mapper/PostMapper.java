@@ -4,20 +4,18 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cos.post.dto.PostDTO;
-
-
+import com.cos.post.domain.post.Post;
 
 @Mapper
 public interface PostMapper {
 	
-	public int insert(PostDTO postDTO);
+	public int insert(Post post);
 	
-	public List<PostDTO> list();
+	public List<Post> list();
 	
-	public PostDTO findByNum(int id);
+	public Post findByNum(int id);
 	
-	public int update(PostDTO postDTO);
+	public int update(Post post);
 	
 	public int delete(int id);
 

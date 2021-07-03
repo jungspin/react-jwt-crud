@@ -1,8 +1,13 @@
 package com.cos.post.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.cos.post.config.filter.jwt.JwtAuthenticationFilter;
+import com.cos.post.config.filter.jwt.JwtAuthorizationFilter;
+import com.cos.post.mapper.UserMapper;
 
 // 진짜 쓸거
 // 스프링은 필터를 xml이 아닌 클래스로 만든다
@@ -16,6 +21,29 @@ public class FilterConfig {
 		FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter());
 		bean.addUrlPatterns("/*");
 		bean.setOrder(0); // 낮은 번호부터 실행이 됨
+		return bean;
+	}
+	
+	@Autowired
+	private UserMapper userMapper;
+
+	@Bean // 함수의 리턴값을 IoC 등록할 수 있음 -> 쓰려면 @Configuration 해야됨
+	public FilterRegistrationBean<JwtAuthenticationFilter> jwtAuthenticationFilter() {
+		System.out.println("JwtAuthenticationFilter 등록됨");
+		FilterRegistrationBean<JwtAuthenticationFilter> bean = new FilterRegistrationBean<JwtAuthenticationFilter>(
+				new JwtAuthenticationFilter(userMapper));
+		bean.addUrlPatterns("/login");
+		bean.setOrder(1); // 낮은 번호부터 실행이 됨
+		return bean;
+	}
+	
+	@Bean // 함수의 리턴값을 IoC 등록할 수 있음 -> 쓰려면 @Configuration 해야됨
+	public FilterRegistrationBean<JwtAuthorizationFilter> jwtAuthorizationFilter(){
+		System.out.println("JwtAuthorizationFilter 등록됨");
+		FilterRegistrationBean<JwtAuthorizationFilter> bean = new FilterRegistrationBean<JwtAuthorizationFilter>(new JwtAuthorizationFilter());
+		//bean.addUrlPatterns("/user/post/*");
+		bean.addUrlPatterns("/user/*"); // /** 는 안됨...미친...
+		bean.setOrder(2);
 		return bean;
 	}
 	

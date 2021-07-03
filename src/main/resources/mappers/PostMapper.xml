@@ -12,12 +12,12 @@ VALUES(#{id}, #{title}, #{content}, #{author})
 </insert>
 
 <!-- 게시글 전체보기 -->
-<select id="list" resultType="PostDTO">
+<select id="list" resultType="Post">
 SELECT * FROM post ORDER BY id DESC
 </select>
 
 <!-- 게시글 상세보기 -->
-<select id="findByNum" resultType="PostDTO">
+<select id="findByNum" resultType="Post">
 SELECT * FROM post WHERE id = #{id}
 </select>
 

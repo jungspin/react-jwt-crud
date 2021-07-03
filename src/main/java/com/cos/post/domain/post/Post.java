@@ -1,4 +1,4 @@
-package com.cos.post.dto;
+package com.cos.post.domain.post;
 
 import java.sql.Date;
 
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostDTO {
-	
+public class Post {
 	private int id;
 	private String title;
 	private String content;

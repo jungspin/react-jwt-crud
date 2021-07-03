@@ -1,4 +1,4 @@
-package com.cos.post.dto;
+package com.cos.post.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
