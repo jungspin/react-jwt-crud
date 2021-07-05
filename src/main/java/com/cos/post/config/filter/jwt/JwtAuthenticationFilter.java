@@ -82,6 +82,8 @@ public class JwtAuthenticationFilter implements Filter {
 					.withExpiresAt(new Date(System.currentTimeMillis() + JwtProps.EXPIRESAT)) // 만료시간 1시간
 					.withClaim("id", userEntity.getId()).withClaim("role", userEntity.getRole())
 					.sign(Algorithm.HMAC512(JwtProps.SECRET));
+			
+			//System.out.println("만료시간 : " +new Date(System.currentTimeMillis() + JwtProps.EXPIRESAT));
 
 			// 4. 응답하면 끝!!!
 			// 헤더 키값 = RFC 문서

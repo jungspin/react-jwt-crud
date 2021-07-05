@@ -21,14 +21,14 @@ const HomePage = () => {
     <div>
       {lists.map((list) => (
         <Container key={list.id}>
-          <Link
-            to={{
-              pathname: `/post/detail/${list.id}`,
-              state: { list },
-            }}
-          >
-            <div>
-              <Card style={{ width: "18rem" }}>
+          <div>
+            <Card style={{ width: "18rem" }}>
+              <Link
+                to={{
+                  pathname: `/post/detail/${list.id}`,
+                  state: { list },
+                }}
+              >
                 <Card.Body>
                   <Card.Title>
                     {list.id}. {list.title}
@@ -38,10 +38,10 @@ const HomePage = () => {
                   </Card.Subtitle>
                   {/* <Card.Text>{list.content}</Card.Text> */}
                 </Card.Body>
-              </Card>
-              <br />
-            </div>
-          </Link>
+              </Link>
+            </Card>
+            <br />
+          </div>
         </Container>
       ))}
     </div>

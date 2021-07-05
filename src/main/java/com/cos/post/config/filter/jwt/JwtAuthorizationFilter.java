@@ -40,6 +40,10 @@ public class JwtAuthorizationFilter implements Filter {
 			out.println("jwtToken not found");
 			out.flush();
 		} else {
+			jwtToken = req.getHeader(JwtProps.HEADER);
+
+			System.out.println("들어온 토큰 : " + jwtToken);
+
 			jwtToken = jwtToken.replace(JwtProps.AUTH, ""); // Bearer 없어야 검증이 가능!!
 			//System.out.println("찐 jwtToken : " + jwtToken);
 
@@ -61,6 +65,8 @@ public class JwtAuthorizationFilter implements Filter {
 				
 				
 			} catch (Exception e) {
+				//System.out.println("catch!!!");
+				e.printStackTrace();
 				PrintWriter out = resp.getWriter();
 				out.println("verify fail");
 				out.flush();

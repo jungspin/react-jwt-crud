@@ -13,7 +13,7 @@ const Header = () => {
     e.preventDefault();
     localStorage.removeItem("Authorization");
     dispatcher(userlogout());
-    // 글쓰다 로그아웃하면 어떡하지?
+    // 글쓰다 로그아웃하면?
   };
 
   return (

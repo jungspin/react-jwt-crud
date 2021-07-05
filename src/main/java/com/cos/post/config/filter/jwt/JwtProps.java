@@ -5,5 +5,5 @@ interface JwtProps {
 	public static final String SECRET = "부산it"; // not good!!
 	public static final String AUTH = "Bearer "; // 띄어쓰기 잊지마!!
 	public static final String HEADER = "Authorization";
-	public static final Long EXPIRESAT = 10 * 60 * 60L;
+	public static final Long EXPIRESAT = 1000 * 60 * 60L;
 }
